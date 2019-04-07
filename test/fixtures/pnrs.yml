@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  seat_no: MyString
+  flight_id: 1
+  seat_type: 1
+
+two:
+  seat_no: MyString
+  flight_id: 1
+  seat_type: 1

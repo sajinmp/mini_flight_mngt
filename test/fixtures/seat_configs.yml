@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  type: 
+  no_of_rows: 1
+  seats_in_row: 1
+  airline_id: 1
+  base_price: 1.5
+
+two:
+  type: 
+  no_of_rows: 1
+  seats_in_row: 1
+  airline_id: 1
+  base_price: 1.5

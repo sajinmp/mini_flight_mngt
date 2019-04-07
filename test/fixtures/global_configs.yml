@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  config_key: MyString
+  config_value: MyString
+  config_type: MyString
+  configurable_type: MyString
+
+two:
+  config_key: MyString
+  config_value: MyString
+  config_type: MyString
+  configurable_type: MyString

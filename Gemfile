@@ -38,11 +38,15 @@ gem 'bootstrap-sass'
 gem 'sassc-rails'
 gem 'jquery-rails'
 
+# Hashid rails
+gem 'hashid-rails'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
 group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'annotate'
 end
 
 # group :test do

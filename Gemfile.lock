@@ -54,6 +54,9 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    annotate (2.7.4)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 13.0)
     arbre (1.2.0)
       activesupport (>= 3.0.0)
     arel (9.0.0)
@@ -92,6 +95,10 @@ GEM
     has_scope (0.7.2)
       actionpack (>= 4.1)
       activesupport (>= 4.1)
+    hashid-rails (1.2.2)
+      activerecord (>= 4.0)
+      hashids (~> 1.0)
+    hashids (1.0.5)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     inherited_resources (1.10.0)
@@ -233,11 +240,13 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  annotate
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.1.0)
   bootstrap-sass
   coffee-rails (~> 4.2)
   devise
+  hashid-rails
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
