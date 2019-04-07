@@ -1,0 +1,47 @@
+<div class="booking-new text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <h2><%= @flight.origin %> - <%= @flight.destination %></h2>
+        <br>
+        <h3>PNR: <%= @pnr.hashid %></h3>
+        <br>
+        <h4>Category: <%= @pnr.seat_config.seat_type_config.config_key.humanize %> Class</h4>
+        <br><br>
+        <h3>Search for another pnr</h3>
+        <br>
+        <%= form_tag '/bookings/new', method: :get do %>
+          <%= text_field_tag :pnr, nil, placeholder: 'Enter pnr', class: 'form-control', id: 'pnr_entry' %>
+          <br>
+          <%= submit_tag 'Submit' %>
+        <% end %>
+      </div>
+      <div class="col-md-4 text-center">
+        <%= form_for @booking do |f| %>
+          <%= f.hidden_field :seat_no, value: nil %>
+          <%= f.hidden_field :pnr_id, value: @pnr.hashid %>
+          <%= f.hidden_field :amount, value: nil %>
+
+          <% @seat_configs.each do |seat_config| %>
+            <h4><%= seat_config.seat_type_config.config_key.humanize %> Class</h4>
+            <% seat_array = ('A'..'Z').to_a %>
+            <% seat_config.no_of_rows.times do |row| %>
+              <% seat_config.seats_in_row.times do |seat| %>
+                <%= check_box_tag :seat, "#{row + 1}#{seat_array[seat]}", false,
+                  'data-seat_type' => seat_config.seat_type, 'data-amount' => seat_config.base_price,
+                  disabled: @pnr.seat_config_id != seat_config.id %>
+              <% end %>
+              <br>
+            <% end %>
+          <% end %>
+          <br><br>
+          <%= f.submit 'Confirm' %>
+        <% end %>
+      </div>
+      <div class="col-md-4">
+        <h4>Amount: <span id="amount"></span></h4>
+      </div>
+    </div>
+  </div>
+  <br><br>
+</div>

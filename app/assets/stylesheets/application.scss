@@ -16,3 +16,22 @@
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
+
+/* Customer facing */
+
+.booking-index {
+  form {
+    text-align: center;
+
+    input#pnr {
+      width: 200px;
+      display: inline;
+    }
+  }
+}
+
+.booking-new {
+  #pnr_entry {
+    width: 100%;
+  }
+}

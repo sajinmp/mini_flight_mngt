@@ -33,6 +33,9 @@ gem 'devise'
 # Active admin
 gem 'activeadmin'
 
+# Active record bulk insert
+gem 'activerecord-import'
+
 # Bootstrap for designs
 gem 'bootstrap-sass'
 gem 'sassc-rails'

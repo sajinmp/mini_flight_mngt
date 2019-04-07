@@ -1,0 +1,28 @@
+<div id="main-content-wrapped">
+  <div id="main-content">
+    <%= form_for @airline, url: @url, method: @method do |f| %>
+      <div class="row">
+        <div class="col-md-12 form-group">
+          <label>Name</label>
+          <%= f.text_field :name, class: 'form-control', required: true %>
+        </div>
+        <br><br>
+        <h3>Seat config</h3>
+        <div class="col-md-12 form-group">
+          <% if params[:id].blank? %>
+            <%= render 'new_seat_config', f: f %>
+          <% else %>
+            <%= render 'edit_seat_config', f: f %>
+          <% end %>
+        </div>
+      </div>
+      <br>
+      <div class='row'>
+        <div class="col-md-12">
+          <%= f.submit 'Save', class: 'btn btn-primary btn-lg' %>
+          <%= link_to 'Cancel', '/admin/ailines' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

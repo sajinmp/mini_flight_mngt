@@ -1,0 +1,11 @@
+<div class='booking-show'>
+  <div class="container">
+    <div class="row">
+      <h2><%= @flight.origin %> - <%= @flight.destination %></h2>
+      <br>
+      <h3>PNR: <%= Pnr.encode_id(@booking.pnr_id) %></h3>
+      <br>
+      <h3>Seat no: <%= @booking.seat_no %></h3>
+    </div>
+  </div>
+</div>

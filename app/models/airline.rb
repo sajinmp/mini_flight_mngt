@@ -9,4 +9,7 @@
 #
 
 class Airline < ApplicationRecord
+  # Associations
+  has_many :seat_configs
+  has_many :flights
 end

@@ -11,4 +11,16 @@
 #
 
 class Flight < ApplicationRecord
+  include Concerns::FlightConcerns
+
+  # Associations
+  belongs_to :airline
+  has_many :pnrs
+  has_many :seat_configs, through: :airline
+
+  # Validations
+  validates_presence_of :origin, :destination
+
+  # Callbacks
+  after_create :create_pnrs
 end

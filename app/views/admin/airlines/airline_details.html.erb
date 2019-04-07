@@ -1,0 +1,20 @@
+<h1><%= @airline.name %></h1>
+
+<h3>Seat configuration</h3>
+
+<table class="table table-striped table-bordered table-hover">
+  <tr>
+    <th>Category</th>
+    <th>Seats in row</th>
+    <th>No of rows</th>
+    <th>Base price</th>
+  </tr>
+  <% @seat_configs.each do |seat_config| %>
+    <tr>
+      <td><%= seat_config.seat_type_config.config_key.humanize %> class</td>
+      <td><%= seat_config.seats_in_row %></td>
+      <td><%= seat_config.no_of_rows %></td>
+      <td><%= seat_config.base_price %></td>
+    </tr>
+  <% end %>
+</table>

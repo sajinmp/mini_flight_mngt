@@ -13,4 +13,6 @@
 #
 
 class SeatConfig < ApplicationRecord
+  belongs_to :airline
+  has_one :seat_type_config, -> { where(configurable_type: 'seat_types') }, class_name: 'GlobalConfig', primary_key: :seat_type, foreign_key: :config_value
 end

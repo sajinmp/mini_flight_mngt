@@ -1,0 +1,6 @@
+<div class="booking-index">
+  <%= form_tag '/bookings/new', method: :get do %>
+    <%= text_field_tag :pnr, nil, placeholder: 'Enter pnr', class: 'form-control' %>
+    <%= submit_tag 'Submit' %>
+  <% end %>
+</div>

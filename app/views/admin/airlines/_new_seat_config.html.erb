@@ -1,0 +1,18 @@
+<% ['First', 'Business', 'Economy'].each_with_index do |seat_class, index| %>
+  <h4><%= seat_class %> Class</h4>
+  <%= f.hidden_field "seat_config_attributes[#{index}][seat_type]", value: index + 1 %>
+  <div class="row">
+    <div class="col-md-12 form-group">
+      <label>Seats in a row</label><br>
+      <%= f.number_field "seat_config_attributes[#{index}][seats_in_row]", value: 0, max: 26, class: 'form-control' %>
+    </div>
+    <div class="col-md-12 form-group">
+      <label>No of rows</label><br>
+      <%= f.number_field "seat_config_attributes[#{index}][no_of_rows]", value: 0, class: 'form-control' %>
+    </div>
+    <div class="col-md-12 form-group">
+      <label>Base price for the seat</label><br>
+      <%= f.number_field "seat_config_attributes[#{index}][base_price]", value: 0, class: 'form-control' %>
+    </div>
+  </div>
+<% end %>
