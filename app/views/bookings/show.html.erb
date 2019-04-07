@@ -6,6 +6,14 @@
       <h3>PNR: <%= Pnr.encode_id(@booking.pnr_id) %></h3>
       <br>
       <h3>Seat no: <%= @booking.seat_no %></h3>
+      <br>
+      <br>
+      <% if available_upgrades = upgrade_available(@pnr) %>
+        <h3>Upgrade available</h3>
+        <% available_upgrades.each do |category, new_pnr| %>
+          <h4><%= link_to "#{category.humanize} class",new_booking_path(pnr: new_pnr, old_booking: @booking.id) %></h4>
+        <% end %>
+      <% end %>
     </div>
   </div>
 </div>

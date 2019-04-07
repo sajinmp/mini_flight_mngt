@@ -8,12 +8,14 @@
         <br>
         <h4>Category: <%= @pnr.seat_config.seat_type_config.config_key.humanize %> Class</h4>
         <br><br>
-        <h3>Search for another pnr</h3>
-        <br>
-        <%= form_tag '/bookings/new', method: :get do %>
-          <%= text_field_tag :pnr, nil, placeholder: 'Enter pnr', class: 'form-control', id: 'pnr_entry' %>
+        <% unless params[:old_booking] %>
+          <h3>Search for another pnr</h3>
           <br>
-          <%= submit_tag 'Submit' %>
+          <%= form_tag '/bookings/new', method: :get do %>
+            <%= text_field_tag :pnr, nil, placeholder: 'Enter pnr', class: 'form-control', id: 'pnr_entry' %>
+            <br>
+            <%= submit_tag 'Submit' %>
+          <% end %>
         <% end %>
       </div>
       <div class="col-md-4 text-center">
@@ -21,6 +23,7 @@
           <%= f.hidden_field :seat_no, value: nil %>
           <%= f.hidden_field :pnr_id, value: @pnr.hashid %>
           <%= f.hidden_field :amount, value: nil %>
+          <%= hidden_field_tag :old_booking, @old_booking.id, 'data-amount' => @old_booking.amount, id: 'old_booking' %>
 
           <% @seat_configs.each do |seat_config| %>
             <h4><%= seat_config.seat_type_config.config_key.humanize %> Class</h4>

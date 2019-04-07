@@ -13,6 +13,6 @@ class Pnr < ApplicationRecord
   # Associations
   belongs_to :flight
   belongs_to :seat_config
-  has_one :confirmed_booking, -> { where(status: GlobalConfig.with_key('booked', 'booking_status')) }, class: 'Booking'
+  has_one :confirmed_booking, -> { where(status: GlobalConfig.with_key('booked', 'booking_status')) }, class_name: 'Booking'
   has_many :bookings
 end

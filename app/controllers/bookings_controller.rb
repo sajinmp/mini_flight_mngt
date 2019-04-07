@@ -8,6 +8,7 @@ class BookingsController < ApplicationController
     @flight = @pnr.flight
     @seat_configs = @flight.seat_configs.includes(:seat_type_config)
     @booking = Booking.new
+    @old_booking = Booking.find(params[:old_booking])
   end
 
   def create
@@ -16,6 +17,11 @@ class BookingsController < ApplicationController
 
   def show
     @booking = Booking.find(params[:id])
+    @pnr = @booking.pnr
     @flight = @booking.flight
+    respond_to do |format|
+      format.html
+      format.json { render json: {amount: @booking.amount} }
+    end
   end
 end

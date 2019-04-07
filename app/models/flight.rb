@@ -17,6 +17,7 @@ class Flight < ApplicationRecord
   belongs_to :airline
   has_many :pnrs
   has_many :seat_configs, through: :airline
+  has_many :bookings
 
   # Validations
   validates_presence_of :origin, :destination
