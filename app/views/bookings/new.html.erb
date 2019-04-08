@@ -8,7 +8,7 @@
         <br>
         <h4>Category: <%= @pnr.seat_config.seat_type_config.config_key.humanize %> Class</h4>
         <br><br>
-        <% unless params[:old_booking] %>
+        <% unless @old_booking %>
           <h3>Search for another pnr</h3>
           <br>
           <%= form_tag '/bookings/new', method: :get do %>
@@ -23,7 +23,9 @@
           <%= f.hidden_field :seat_no, value: nil %>
           <%= f.hidden_field :pnr_id, value: @pnr.hashid %>
           <%= f.hidden_field :amount, value: nil %>
-          <%= hidden_field_tag :old_booking, @old_booking.id, 'data-amount' => @old_booking.amount, id: 'old_booking' %>
+          <% if @old_booking %>
+            <%= hidden_field_tag :old_booking, @old_booking.id, 'data-amount' => @old_booking.amount, id: 'old_booking' %>
+          <% end %>
 
           <% @seat_configs.each do |seat_config| %>
             <h4><%= seat_config.seat_type_config.config_key.humanize %> Class</h4>

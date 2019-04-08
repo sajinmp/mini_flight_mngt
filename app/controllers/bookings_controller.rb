@@ -8,7 +8,7 @@ class BookingsController < ApplicationController
     @flight = @pnr.flight
     @seat_configs = @flight.seat_configs.includes(:seat_type_config)
     @booking = Booking.new
-    @old_booking = Booking.find(params[:old_booking])
+    @old_booking = Booking.find(params[:old_booking]) if params[:old_booking]
   end
 
   def create
