@@ -25,6 +25,7 @@ module BookingsHelper
   end
 
   def check_seat_availability(pnr, seat_config, seat_number, booked_seats)
-    (@pnr.seat_config_id != seat_config.id) || (booked_seats.include?(seat_number))
+    booked_seat = booked_seats.include?(seat_number)
+    [(@pnr.seat_config_id != seat_config.id) || booked_seat, booked_seat]
   end
 end

@@ -12,6 +12,7 @@ $(document).on('turbolinks:load', function() {
       $('#amount').html(amt);
     } else {
       $('input[data-seat_type=' + seat_type + ']').attr('disabled', false);
+      $('input[data-seat_booked=true]').attr('disabled', true);
       $('#booking_seat_no').val('');
       $('#booking_amount').val('');
       $('#amount').html('');
