@@ -23,4 +23,8 @@ module BookingsHelper
     return false if available_pnrs.blank?
     return Pnr.encode_id(available_pnrs[0])
   end
+
+  def check_seat_availability(pnr, seat_config, seat_number, booked_seats)
+    (@pnr.seat_config_id != seat_config.id) || (booked_seats.include?(seat_number))
+  end
 end

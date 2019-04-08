@@ -32,9 +32,10 @@
             <% seat_array = ('A'..'Z').to_a %>
             <% seat_config.no_of_rows.times do |row| %>
               <% seat_config.seats_in_row.times do |seat| %>
-                <%= check_box_tag :seat, "#{row + 1}#{seat_array[seat]}", false,
+                <% seat_number = "#{row + 1}#{seat_array[seat]}" %>
+                <%= check_box_tag :seat, seat_number, false,
                   'data-seat_type' => seat_config.seat_type, 'data-amount' => seat_config.base_price,
-                  disabled: @pnr.seat_config_id != seat_config.id %>
+                  disabled: check_seat_availability(@pnr, seat_config, seat_number, @booked_seats) %>
               <% end %>
               <br>
             <% end %>
