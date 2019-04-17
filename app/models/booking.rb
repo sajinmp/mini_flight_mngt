@@ -14,4 +14,5 @@ class Booking < ApplicationRecord
   # Associations
   has_many :flight_bookings
   has_one :pnr
+  has_many :passenger_details
 end

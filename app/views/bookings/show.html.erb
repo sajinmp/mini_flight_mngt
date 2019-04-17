@@ -1,19 +1,39 @@
 <div class='booking-show'>
   <div class="container">
     <div class="row">
-      <h2><%= @flight.origin %> - <%= @flight.destination %></h2>
+      <h2><%= @booking.origin %> - <%= @booking.destination %></h2>
       <br>
-      <h3>PNR: <%= Pnr.encode_id(@booking.pnr_id) %></h3>
+      <h3>PNR: <%= @pnr.hashid %></h3>
       <br>
-      <h3>Seat no: <%= @booking.seat_no %></h3>
-      <br>
-      <br>
-      <% if available_upgrades = upgrade_available(@pnr) %>
-        <h3>Upgrade available</h3>
-        <% available_upgrades.each do |category, new_pnr| %>
-          <h4><%= link_to "#{category.humanize} class",new_booking_path(pnr: new_pnr, old_booking: @booking.id) %></h4>
-        <% end %>
+      <% @booking.flight_bookings.each do |flight_booking| %>
+        <% flight = flight_booking.flight %>
+        <h4>Flight No : <%= flight.hashid %></h4>
+        <h4><%= flight.origin %> - <%= flight.destination %></h4>
+        <br>
+        <% passengers = get_passengers(@booking, flight) %>
+        <h4>Pasengers</h4>
+        <table class="table table-bordered table-hover table-striped">
+          <tr>
+            <th>Seat number</th>
+            <th>Category</th>
+            <th>Name</th>
+          </tr>
+          <% passengers.each do |passenger| %>
+            <tr>
+              <td><%= passenger.seat_no %></td>
+              <td><%= passenger_class(passenger) %></td>
+              <td><%= passenger.name %></td>
+            </tr>
+          <% end %>
+        </table>
+        <br><br>
       <% end %>
+      <!-- <%# if available_upgrades = upgrade_available(@pnr) %>
+        <h3>Upgrade available</h3>
+        <%# available_upgrades.each do |category, new_pnr| %>
+          <h4><%#= link_to "#{category.humanize} class",new_booking_path(pnr: new_pnr, old_booking: @booking.id) %></h4>
+        <%# end %>
+        <%# end %> -->
     </div>
   </div>
 </div>

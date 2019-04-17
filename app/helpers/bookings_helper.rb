@@ -19,6 +19,14 @@ module BookingsHelper
     flight.seat_configs.find { |i| i.id == seat['seat_config'].to_i }&.seat_type_config&.config_key&.humanize
   end
 
+  def passenger_class(passenger)
+    passenger.seat_config.seat_type_config.config_key.humanize
+  end
+
+  def get_passengers(booking, flight)
+    @booking.passenger_details.select { |i| i.flight_id == flight.id }
+  end
+
   def upgrade_available(pnr)
     seat_config = pnr.seat_config
     seat_types = GlobalConfig.where(configurable_type: 'seat_types').map { |i| [i.config_key, i.value] }

@@ -41,8 +41,7 @@ class BookingsController < ApplicationController
   # end
 
   def show
-    @booking = Booking.find(params[:id])
+    @booking = Booking.includes(passenger_details: {seat_config: :seat_type_config}, flight_bookings: :flight).find(params[:id])
     @pnr = @booking.pnr
-    @flight = @booking.flight_bookings
   end
 end

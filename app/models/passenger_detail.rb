@@ -13,4 +13,7 @@
 #
 
 class PassengerDetail < ApplicationRecord
+  belongs_to :seat_config
+  belongs_to :flight
+  belongs_to :booking
 end

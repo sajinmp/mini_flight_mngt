@@ -1,12 +1,22 @@
 <div class="booking-index">
   <div class="container text-center">
+    <h2>Start booking</h2>
+    <br>
     <%= form_tag '/bookings/list', method: :get do %>
       <%= text_field_tag :origin, nil, placeholder: 'Origin', class: 'form-control' %>
-      <br>
+      <br><br>
       <%= text_field_tag :destination, nil, placeholder: 'Destination', class: 'form-control' %>
-      <br>
+      <br><br>
       <%= number_field_tag :no_of_seats, nil, placeholder: 'No of seats', class: 'form-control' %>
-      <br>
+      <br><br>
+      <%= submit_tag 'Submit' %>
+    <% end %>
+    <br><br>
+    <h2>Search booked PNR</h2>
+    <br>
+    <%= form_tag '/bookings/search', method: :get do %>
+      <%= text_field_tag :pnr, nil, placeholder: 'PNR', class: 'form-control' %>
+      <br><br>
       <%= submit_tag 'Submit' %>
     <% end %>
   </div>
