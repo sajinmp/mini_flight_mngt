@@ -52,6 +52,9 @@ group :development do
   gem 'annotate'
 end
 
+# Faker
+gem 'faker'
+
 # group :test do
 #   # Adds support for Capybara system testing and selenium driver
 #   gem 'capybara', '>= 2.15'

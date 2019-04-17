@@ -10,11 +10,17 @@ class BookingsController < ApplicationController
 
   def new
     @flights = Flight.includes(seat_configs: :seat_type_config).where(id: params[:flight_ids])
-    @origin, @destination = params[:origin], params[:destination]
+    @origin, @destination, @no_of_seats = params[:origin], params[:destination], params[:no_of_seats]
+    @connected = params[:flight_ids].size > 1
+    @booking = Booking.new
   end
 
   def create
     create_booking(params)
+  end
+
+  def passenger
+    @booking = Booking.includes(flight_bookings: [flight: {seat_configs: :seat_type_config}]).find(params[:id])
   end
 
   def confirm
@@ -37,10 +43,6 @@ class BookingsController < ApplicationController
   def show
     @booking = Booking.find(params[:id])
     @pnr = @booking.pnr
-    @flight = @booking.flight
-    respond_to do |format|
-      format.html
-      format.json { render json: {amount: @booking.amount} }
-    end
+    @flight = @booking.flight_bookings
   end
 end

@@ -11,4 +11,10 @@
 #
 
 class FlightBooking < ApplicationRecord
+  # Associations
+  belongs_to :booking
+  belongs_to :flight
+
+  # Serialize to json
+  serialize :seat_details, Hash
 end

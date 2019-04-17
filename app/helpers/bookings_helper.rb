@@ -3,6 +3,22 @@ module BookingsHelper
     Flight.encode_id(flight_id)
   end
 
+  def get_booking_details(flight_booking)
+    [flight_booking.flight, flight_booking&.seat_details[:seat_info]]
+  end
+
+  def seat_no(seat)
+    seat['seat_no']
+  end
+
+  def seat_config(seat)
+    seat['seat_config']
+  end
+
+  def seat_class(flight, seat)
+    flight.seat_configs.find { |i| i.id == seat['seat_config'].to_i }&.seat_type_config&.config_key&.humanize
+  end
+
   def upgrade_available(pnr)
     seat_config = pnr.seat_config
     seat_types = GlobalConfig.where(configurable_type: 'seat_types').map { |i| [i.config_key, i.value] }

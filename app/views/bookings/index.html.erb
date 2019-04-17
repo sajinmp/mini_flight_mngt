@@ -1,8 +1,13 @@
 <div class="booking-index">
-  <%= form_tag '/bookings/list', method: :get do %>
-    <%= text_field_tag :origin, nil, placeholder: 'Origin', class: 'form-control' %>
-    <%= text_field_tag :destination, nil, placeholder: 'Destination', class: 'form-control' %>
-    <%= number_field_tag :no_of_seats, nil, placeholder: 'No of seats', class: 'form-control' %>
-    <%= submit_tag 'Submit' %>
-  <% end %>
+  <div class="container text-center">
+    <%= form_tag '/bookings/list', method: :get do %>
+      <%= text_field_tag :origin, nil, placeholder: 'Origin', class: 'form-control' %>
+      <br>
+      <%= text_field_tag :destination, nil, placeholder: 'Destination', class: 'form-control' %>
+      <br>
+      <%= number_field_tag :no_of_seats, nil, placeholder: 'No of seats', class: 'form-control' %>
+      <br>
+      <%= submit_tag 'Submit' %>
+    <% end %>
+  </div>
 </div>

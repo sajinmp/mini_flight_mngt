@@ -11,6 +11,7 @@
 
   <body>
     <h3><%= link_to 'Seat booking', root_path %></h3>
+    <br>
     <% flash.each do |key, value| %>
       <div class="alert alert-<%= key %>"><%= value %></div>
     <% end %>

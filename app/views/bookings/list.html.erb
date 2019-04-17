@@ -1,4 +1,8 @@
-<div class="booking-list">
+<% if @connected %>
+<div class="booking-list" data-no_of_seats="<%= @no_of_seats %>" data-connected=1>
+<% else %>
+<div class="booking-list" data-no_of_seats="<%= @no_of_seats %>">
+<% end %>
   <div class="container">
     <h1><%= @origin %> - <%= @destination %></h1>
     <br><br>
@@ -9,7 +13,7 @@
       <div class="col-md-8 col-md-offset-4">
         <ul>
           <% @direct_flights.each do |flight| %>
-            <%= link_to new_booking_path(flight_ids: [flight.id], origin: @origin, destination: @destination) do %>
+            <%= link_to new_booking_path(flight_ids: [flight.id], origin: @origin, destination: @destination, no_of_seats: @no_of_seats) do %>
               <li>
                 <h4>F.No: <%= flight.hashid %></h4>
                 <h5><%= flight.origin %> - <%= flight.destination %>
@@ -28,7 +32,7 @@
       <div class="col-md-8 col-md-offset-4">
         <ul>
           <% @connected_flights.each do |flight| %>
-            <%= link_to new_booking_path(flight_ids: [flight.id, flight.connection_id], origin: @origin, destination: @destination) do %>
+            <%= link_to new_booking_path(flight_ids: [flight.id, flight.connection_id], origin: @origin, destination: @destination, no_of_seats: @no_of_seats) do %>
               <li>
                 <h4>F.Nos: <%= flight.hashid %> - <%= get_flight_no(flight.connection_id) %></h4>
                 <h5><%= flight.origin %> - <%= flight.connection_point %> - <%= flight.destination %></h5>

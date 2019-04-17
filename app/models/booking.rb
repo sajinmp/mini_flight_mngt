@@ -2,16 +2,16 @@
 #
 # Table name: bookings
 #
-#  id                  :bigint(8)        not null, primary key
-#  amount              :float
-#  no_of_seats         :string
-#  status              :integer
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  id          :bigint(8)        not null, primary key
+#  no_of_seats :integer
+#  amount      :float
+#  status      :integer
+#  origin      :string
+#  destination :string
 #
 
 class Booking < ApplicationRecord
   # Associations
-  belongs_to :pnr
-  belongs_to :flight
+  has_many :flight_bookings
+  has_one :pnr
 end

@@ -1,0 +1,29 @@
+<div class="booking-passenger">
+  <div class="container">
+    <div class="row text-center">
+      <h1><%= @booking.origin %> - <%= @booking.destination %></h1>
+      <h3>Enter passenger info</h3>
+      <br><br>
+      <div class="col-md-10">
+        <h5 class="submit-error"></h5>
+        <% @booking.flight_bookings.each do |flight_booking| %>
+          <% flight, seat_info = get_booking_details(flight_booking) %>
+          <h4><%= flight.origin %> - <%= flight.destination %></h4>
+          <br><br>
+          <% seat_info.each do |seat| %>
+            <label><%= seat_no(seat) %> - <%= seat_class(flight, seat) %> Class</label>&nbsp;
+            <%= text_field_tag :name, nil, placeholder: 'Enter name', 'data-seat_no' => seat_no(seat), 'data-flight_id' => flight.id,
+              'data-seat_config' => seat_config(seat), required: true, class: 'form-control' %>
+            <br><br>
+          <% end %>
+        <% end %>
+        <br>
+        <%= submit_tag 'Submit', id: 'submit_btn' %>
+        <br><br>
+      </div>
+      <%= form_tag "/bookings/#{@booking.id}/confirm", {class: 'collapse', id: 'passenger_info_form'} do %>
+        <%= hidden_field_tag :passenger_info, nil %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,18 @@
-<div class="booking-seats text-center">
+<% if @connected %>
+<div class="booking-new text-center" data-connected=1>
+<% else %>
+<div class="booking-new text-center">
+<% end %>
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
-        <%= form_tag @booking do |f| %>
-          <%= hidden_field_tag :seat_nos, nil %>
-          <%= f.hidden_field :no_of_seats, value: nil %>
-          <%= f.hidden_field :amount, value: nil %>
-          <%= f.hidden_field :origin, value: @origin %>
-          <%= f.hidden_field :destination, value: @destination %>
-          <% @flights.each do |flight| %>
+      <%= form_for @booking do |f| %>
+        <%= hidden_field_tag :seat_nos, "{}" %>
+        <%= f.hidden_field :no_of_seats, value: @no_of_seats %>
+        <%= f.hidden_field :amount, value: nil %>
+        <%= f.hidden_field :origin, value: @origin %>
+        <%= f.hidden_field :destination, value: @destination %>
+        <% @flights.each do |flight| %>
+          <div class="col-md-4">
             <h2><%= flight.origin %> - <%= flight.destination %></h2>
 
             <!-- Displaying seat selection for flight -->
@@ -21,22 +25,22 @@
                 <% seat_config.seats_in_row.times do |seat| %>
                   <% seat_number = "#{row + 1}#{seat_array[seat]}" %>
                   <%# seat_available, booked_seat = check_seat_availability(@pnr, seat_config, seat_number, @booked_seats) %>
-                  <%= check_box_tag :seat, seat_number, false, 'data-flight-id' => flight.id,
-                    'data-seat_type' => seat_config.seat_type, 'data-amount' => seat_config.base_price,
-                    disabled: seat_available, 'data-seat_booked' => booked_seat %>
+                  <%= check_box_tag :seat, seat_number, false, 'data-flight_id' => flight.id,
+                  'data-seat_type' => seat_config.id, 'data-amount' => seat_config.base_price %>
+                  <!--  disabled: seat_available, 'data-seat_booked' => booked_seat %-->
                 <% end %>
                 <br>
               <% end %>
               <br>
             <% end %>
-            <br><br><br>
-          <% end %>
-          <%= f.submit 'Submit' %>
+          </div>
         <% end %>
-      </div>
-      <div class="col-md-4">
-        <h4>Amount: <span id="amount"></span></h4>
-      </div>
+        <div class="col-md-4">
+          <h4>Amount: <span id="amount"></span></h4>
+          <br><br>
+          <%= f.submit 'Enter details' %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
