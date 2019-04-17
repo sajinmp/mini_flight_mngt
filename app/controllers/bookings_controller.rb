@@ -8,6 +8,16 @@ class BookingsController < ApplicationController
     list_flights(params)
   end
 
+  def search
+    begin
+      pnr = Pnr.find(params[:pnr])
+      redirect_to pnr.booking
+    rescue ActiveRecord::RecordNotFound
+      flash[:error] = 'Invalid Pnr'
+      redirect_to bookings_path
+    end
+  end
+
   def new
     @flights = Flight.includes(seat_configs: :seat_type_config).where(id: params[:flight_ids])
     @booked_seats = get_booked_seats(params[:flight_ids])
