@@ -52,7 +52,11 @@ module BookingsHelper
     return Pnr.encode_id(available_pnrs[0])
   end
 
-  def check_seat_availability(pnr, seat_config, seat_number, booked_seats)
+  def seat_booked?(flight_id, seat_config_id, seat_number, booked_seats)
+    val = booked_seats[flight_id].select { |i| i[0] == seat_number && i[1] == seat_config_id }.present?
+  end
+
+  def check_seat_availability(seat_number, booked_seats)
     booked_seat = booked_seats.include?(seat_number)
     [(@pnr.seat_config_id != seat_config.id) || booked_seat, booked_seat]
   end

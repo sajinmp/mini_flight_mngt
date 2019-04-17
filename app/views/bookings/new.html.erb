@@ -24,10 +24,10 @@
               <% seat_config.no_of_rows.times do |row| %>
                 <% seat_config.seats_in_row.times do |seat| %>
                   <% seat_number = "#{row + 1}#{seat_array[seat]}" %>
-                  <%# seat_available, booked_seat = check_seat_availability(@pnr, seat_config, seat_number, @booked_seats) %>
+                  <% booked = seat_booked?(flight.id, seat_config.id, seat_number, @booked_seats) %>
                   <%= check_box_tag :seat, seat_number, false, 'data-flight_id' => flight.id,
-                  'data-seat_type' => seat_config.id, 'data-amount' => seat_config.base_price %>
-                  <!--  disabled: seat_available, 'data-seat_booked' => booked_seat %-->
+                  'data-seat_type' => seat_config.id, 'data-amount' => seat_config.base_price,
+                  disabled: booked, 'data-seat_booked' => booked %>
                 <% end %>
                 <br>
               <% end %>

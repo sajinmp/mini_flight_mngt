@@ -13,7 +13,7 @@ module Concerns
       JSON.parse(params[:seat_nos]).each do |flight_id, seat_details|
         FlightBooking.create!(booking_id: @booking.id, flight_id: flight_id, seat_details: {seat_info: seat_details})
       end
-      redirect_to passenger_bookings_path(@booking)
+      redirect_to passenger_booking_path(@booking)
     end
 
     def confirm_booking(params)
@@ -34,6 +34,16 @@ module Concerns
 
     def booking_params
       params.require(:booking).permit(:amount, :no_of_seats, :origin, :destination)
+    end
+
+    def get_booked_seats(flight_ids)
+      booked = {}
+      booked_status = GlobalConfig.with_key('booked', 'booking_status') 
+      flight_ids.each do |id|
+        booked[id.to_i] = PassengerDetail.joins(:booking).where(flight_id: id,
+                                    bookings: { status: booked_status }).map { |i| [i.seat_no, i.seat_config_id] }
+      end
+      booked
     end
   end
 end

@@ -25,6 +25,7 @@ $(document).on('turbolinks:load', function() {
       $('#booking_amount').val(amount);
       if (seat_detail_json[flight_id].length < no_of_seats) {
         $('input[data-flight_id=' + flight_id + ']').attr('disabled', false);
+        $('input[data-seat_booked=true]').attr('disabled', true);
       }
     }
     $('#amount').html(amount);

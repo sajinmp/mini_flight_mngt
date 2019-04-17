@@ -10,6 +10,7 @@ class BookingsController < ApplicationController
 
   def new
     @flights = Flight.includes(seat_configs: :seat_type_config).where(id: params[:flight_ids])
+    @booked_seats = get_booked_seats(params[:flight_ids])
     @origin, @destination, @no_of_seats = params[:origin], params[:destination], params[:no_of_seats]
     @connected = params[:flight_ids].size > 1
     @booking = Booking.new
