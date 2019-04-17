@@ -1,0 +1,43 @@
+<div class="booking-list">
+  <div class="container">
+    <h1><%= @origin %> - <%= @destination %></h1>
+    <br><br>
+
+    <!-- Direct flight listing -->
+    <h2>Direct flights</h2>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-4">
+        <ul>
+          <% @direct_flights.each do |flight| %>
+            <%= link_to new_booking_path(flight_ids: [flight.id], origin: @origin, destination: @destination) do %>
+              <li>
+                <h4>F.No: <%= flight.hashid %></h4>
+                <h5><%= flight.origin %> - <%= flight.destination %>
+              </li>
+            <% end %>
+            <br>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <br><br>
+
+    <!-- Connection flight listing -->
+    <h2>Connection flights</h2>
+    <div class="row">
+      <div class="col-md-8 col-md-offset-4">
+        <ul>
+          <% @connected_flights.each do |flight| %>
+            <%= link_to new_booking_path(flight_ids: [flight.id, flight.connection_id], origin: @origin, destination: @destination) do %>
+              <li>
+                <h4>F.Nos: <%= flight.hashid %> - <%= get_flight_no(flight.connection_id) %></h4>
+                <h5><%= flight.origin %> - <%= flight.connection_point %> - <%= flight.destination %></h5>
+              </li>
+            <% end %>
+          <% end %>
+          <br>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

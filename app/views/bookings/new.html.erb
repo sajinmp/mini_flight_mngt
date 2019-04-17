@@ -1,48 +1,37 @@
-<div class="booking-new text-center">
+<div class="booking-seats text-center">
   <div class="container">
     <div class="row">
-      <div class="col-md-4">
-        <h2><%= @flight.origin %> - <%= @flight.destination %></h2>
-        <br>
-        <h3>PNR: <%= @pnr.hashid %></h3>
-        <br>
-        <h4>Category: <%= @pnr.seat_config.seat_type_config.config_key.humanize %> Class</h4>
-        <br><br>
-        <% unless @old_booking %>
-          <h3>Search for another pnr</h3>
-          <br>
-          <%= form_tag '/bookings/new', method: :get do %>
-            <%= text_field_tag :pnr, nil, placeholder: 'Enter pnr', class: 'form-control', id: 'pnr_entry' %>
-            <br>
-            <%= submit_tag 'Submit' %>
-          <% end %>
-        <% end %>
-      </div>
-      <div class="col-md-4 text-center">
-        <%= form_for @booking do |f| %>
-          <%= f.hidden_field :seat_no, value: nil %>
-          <%= f.hidden_field :pnr_id, value: @pnr.hashid %>
+      <div class="col-md-8">
+        <%= form_tag @booking do |f| %>
+          <%= hidden_field_tag :seat_nos, nil %>
+          <%= f.hidden_field :no_of_seats, value: nil %>
           <%= f.hidden_field :amount, value: nil %>
-          <% if @old_booking %>
-            <%= hidden_field_tag :old_booking, @old_booking.id, 'data-amount' => @old_booking.amount, id: 'old_booking' %>
-          <% end %>
+          <%= f.hidden_field :origin, value: @origin %>
+          <%= f.hidden_field :destination, value: @destination %>
+          <% @flights.each do |flight| %>
+            <h2><%= flight.origin %> - <%= flight.destination %></h2>
 
-          <% @seat_configs.each do |seat_config| %>
-            <h4><%= seat_config.seat_type_config.config_key.humanize %> Class</h4>
-            <% seat_array = ('A'..'Z').to_a %>
-            <% seat_config.no_of_rows.times do |row| %>
-              <% seat_config.seats_in_row.times do |seat| %>
-                <% seat_number = "#{row + 1}#{seat_array[seat]}" %>
-                <% seat_available, booked_seat = check_seat_availability(@pnr, seat_config, seat_number, @booked_seats) %>
-                <%= check_box_tag :seat, seat_number, false,
-                  'data-seat_type' => seat_config.seat_type, 'data-amount' => seat_config.base_price,
-                  disabled: seat_available, 'data-seat_booked' => booked_seat %>
+            <!-- Displaying seat selection for flight -->
+            <% flight.seat_configs.each do |seat_config| %>
+              <h4><%= seat_config.seat_type_config.config_key.humanize %> Class</h4>
+              <% seat_array = ('A'..'Z').to_a %>
+
+              <!-- Seat checkboxes -->
+              <% seat_config.no_of_rows.times do |row| %>
+                <% seat_config.seats_in_row.times do |seat| %>
+                  <% seat_number = "#{row + 1}#{seat_array[seat]}" %>
+                  <%# seat_available, booked_seat = check_seat_availability(@pnr, seat_config, seat_number, @booked_seats) %>
+                  <%= check_box_tag :seat, seat_number, false, 'data-flight-id' => flight.id,
+                    'data-seat_type' => seat_config.seat_type, 'data-amount' => seat_config.base_price,
+                    disabled: seat_available, 'data-seat_booked' => booked_seat %>
+                <% end %>
+                <br>
               <% end %>
               <br>
             <% end %>
+            <br><br><br>
           <% end %>
-          <br><br>
-          <%= f.submit 'Confirm' %>
+          <%= f.submit 'Submit' %>
         <% end %>
       </div>
       <div class="col-md-4">
@@ -50,5 +39,4 @@
       </div>
     </div>
   </div>
-  <br><br>
 </div>

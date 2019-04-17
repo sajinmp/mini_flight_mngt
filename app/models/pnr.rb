@@ -2,11 +2,10 @@
 #
 # Table name: pnrs
 #
-#  id             :bigint(8)        not null, primary key
-#  flight_id      :integer
-#  seat_config_id :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
+#  id         :bigint(8)        not null, primary key
+#  booking_id :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class Pnr < ApplicationRecord

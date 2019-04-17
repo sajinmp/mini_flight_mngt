@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_07_222901) do
+ActiveRecord::Schema.define(version: 2019_04_17_055216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,15 +48,19 @@ ActiveRecord::Schema.define(version: 2019_04_07_222901) do
   end
 
   create_table "bookings", force: :cascade do |t|
-    t.integer "pnr_id"
-    t.integer "flight_id"
+    t.integer "no_of_seats"
     t.float "amount"
-    t.string "seat_no"
     t.integer "status"
-    t.integer "upgraded_booking_id"
+    t.string "origin"
+    t.string "destination"
+  end
+
+  create_table "flight_bookings", force: :cascade do |t|
+    t.integer "booking_id"
+    t.integer "flight_id"
+    t.text "seat_details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "previous_amount"
   end
 
   create_table "flights", force: :cascade do |t|
@@ -76,9 +80,18 @@ ActiveRecord::Schema.define(version: 2019_04_07_222901) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "pnrs", force: :cascade do |t|
+  create_table "passenger_details", force: :cascade do |t|
     t.integer "flight_id"
+    t.integer "booking_id"
+    t.string "name"
+    t.string "seat_no"
     t.integer "seat_config_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pnrs", force: :cascade do |t|
+    t.integer "booking_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

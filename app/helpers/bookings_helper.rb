@@ -1,4 +1,8 @@
 module BookingsHelper
+  def get_flight_no(flight_id)
+    Flight.encode_id(flight_id)
+  end
+
   def upgrade_available(pnr)
     seat_config = pnr.seat_config
     seat_types = GlobalConfig.where(configurable_type: 'seat_types').map { |i| [i.config_key, i.value] }

@@ -1,6 +1,8 @@
 <div class="booking-index">
-  <%= form_tag '/bookings/new', method: :get do %>
-    <%= text_field_tag :pnr, nil, placeholder: 'Enter pnr', class: 'form-control' %>
+  <%= form_tag '/bookings/list', method: :get do %>
+    <%= text_field_tag :origin, nil, placeholder: 'Origin', class: 'form-control' %>
+    <%= text_field_tag :destination, nil, placeholder: 'Destination', class: 'form-control' %>
+    <%= number_field_tag :no_of_seats, nil, placeholder: 'No of seats', class: 'form-control' %>
     <%= submit_tag 'Submit' %>
   <% end %>
 </div>

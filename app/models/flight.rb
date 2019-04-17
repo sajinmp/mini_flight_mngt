@@ -23,5 +23,12 @@ class Flight < ApplicationRecord
   validates_presence_of :origin, :destination
 
   # Callbacks
-  after_create :create_pnrs
+  # after_create :create_pnrs
+
+  # Scopes
+  scope :join_flights, -> { joins('left join flights b on b.origin = flights.destination') }
+  scope :flights_with_origin_destination, ->(origin, destination) {where(origin: origin, destination: destination) }
+  scope :connected_flights, ->(origin, destination) { where('flights.origin = ? and b.destination = ?', origin, destination) }
+  scope :select_connected_flight_details, -> { select('flights.id as id, b.id as connection_id, flights.origin as origin,
+          flights.destination as connection_point, b.destination as destination') }
 end
